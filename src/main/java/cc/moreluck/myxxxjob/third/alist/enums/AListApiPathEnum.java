@@ -15,6 +15,7 @@ public enum AListApiPathEnum {
     CREDIT_APPLY("/api/auth/login", "token获取", "POST",true),
 
     FS_REMOVE("/api/fs/remove", "删除文件或文件夹", "POST",true),
+    FS_SEARCH("/api/fs/search", "搜索文件或文件夹", "POST",true),
 
     FS_PUT("/api/fs/put", "流式上传文件", "PUT",true),
     ;

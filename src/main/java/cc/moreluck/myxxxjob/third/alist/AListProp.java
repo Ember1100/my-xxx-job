@@ -18,4 +18,5 @@ public class AListProp {
     private String apiServer;
     private String user;
     private String pwd;
+    private String filePath;
 }
