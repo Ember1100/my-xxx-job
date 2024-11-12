@@ -96,7 +96,7 @@ public class ApiResponse<T> implements Serializable {
     }
 
     public static <T> ApiResponse<T> success(String code, String message) {
-        return new ApiResponse(true, code, message);
+        return new ApiResponse<>(true, code, message);
     }
 
     public static <T> ApiResponse<T> fail(String code, String message) {

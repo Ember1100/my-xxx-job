@@ -1,5 +1,6 @@
 package cc.moreluck.myxxxjob.third.alist.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -9,6 +10,10 @@ import lombok.Data;
  */
 @Data
 public class FsSearchRequest {
+    /**
+     * 搜索目录
+     */
+    private String parent;
 
     /**
      * 关键词 - 用于搜索的字符串。
@@ -21,18 +26,19 @@ public class FsSearchRequest {
      * 1 - 文件夹
      * 2 - 文件
      */
-    private int scope;
+    private Integer scope;
 
     /**
      * 页数 - 表示请求的页码。
      * 注意：页码从 1 开始。
      */
-    private int page;
+    private Integer page;
 
     /**
      * 每页数目 - 表示每一页的记录数。
      */
-    private int perPage;
+    @JsonProperty(value = "per_page")
+    private Integer perPage;
 
     /**
      * 密码 - 用于验证的密码。

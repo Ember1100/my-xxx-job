@@ -2,6 +2,7 @@ package cc.moreluck.myxxxjob.third.alist;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,7 +14,8 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties("app.alist")
+@ConfigurationProperties(prefix = "app.alist",ignoreUnknownFields = true)
+@ToString
 public class AListProp {
     private String apiServer;
     private String user;

@@ -1,16 +1,15 @@
 package cc.moreluck.myxxxjob.third.alist.request;
 
-import java.io.File;
+import lombok.Data;
+
 
 /**
  * @author huangqi
  * @date 2024/11/11 17:56
  * @description:
  */
+@Data
 public class FsUploadRequest {
-    // URL 编码文件路径
-    private String encodedFilePath;
-
-    //file contents here
-    private File file;
+    // zlm 文件路径
+    private String filePath;
 }
