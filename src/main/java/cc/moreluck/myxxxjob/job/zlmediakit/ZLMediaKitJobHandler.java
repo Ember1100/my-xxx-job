@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 
 /**
@@ -76,8 +78,45 @@ public class ZLMediaKitJobHandler {
 
     @XxlJob(value = "removeHaveUploadedFileJobHandler")
     public ReturnT<String> removeHaveUploadedFile(String param) {
+        try {
+            File root = new File(aListProp.getFilePath());
 
-        File root = new File(aListProp.getFilePath());
+            File[] files = root.listFiles();
+            if (files == null || files.length == 0) {
+                log.info("{}：无文件", root.getAbsolutePath());
+                return ReturnT.SUCCESS;
+            }
+            for (File fe : files) {
+                if (fe.isDirectory()) {
+                    File[] fes = fe.listFiles();
+                    if (fes == null || fes.length == 0) {
+                        log.info("路径：{}：无文件", fe.getAbsolutePath());
+                        return ReturnT.SUCCESS;
+                    }
+                    for (File file : fes) {
+                        if (file.isDirectory()) {
+                            File[] fls = file.listFiles();
+                            if (fls == null || fls.length == 0) {
+                                log.info("路径：{}：没有文件", file.getAbsolutePath());
+                                continue;
+                            }
+                            for (File fl : fls) {
+                                FsGetRequest request = buildFsGetRequest(file.getName() + fl.getName());
+                                ApiResponse<FsGetResponse> fsGetResponseApiResponse = aListApiService.fsGet(request);
+                                FsGetResponse data = fsGetResponseApiResponse.getData();
+                                if (data != null) {
+                                    Files.delete(fl.toPath());
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            log.warn("删除失败");
+            throw new RuntimeException(e);
+        }
         return ReturnT.SUCCESS;
     }
 
